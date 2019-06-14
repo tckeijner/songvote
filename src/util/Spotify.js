@@ -1,7 +1,5 @@
 const clientId = '1a1b349f387b4c89a0a051d88c83ecf7';
 let token;
-let playlistId = '3uWqj2Y0K7csY12zUHJDMh';
-let userId = 'thomaskeijner'
 const baseApiUrl = 'https://api.spotify.com/v1';
 
 const Spotify = {
@@ -46,63 +44,62 @@ const Spotify = {
     });
   },
 
-      fetchPlaylist() {
-        const getConfig = {
-          method: 'GET',
-          headers: { Authorization: `Bearer ${accessToken}` }
-      };
-          return fetch(
-            `${baseApiUrl}/playlists/${playlistId}`,
-            getConfig
-          ).then(response => {
-            return response.json();
-          })
-      },
+  fetchPlaylist(playlistId) {
+    const getConfig = {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${accessToken}` }
+  };
+      return fetch(
+        `${baseApiUrl}/playlists/${playlistId}`,
+        getConfig
+      ).then(response => {
+        return response.json();
+      });
+  },
 
-      addSelectionToPlaylist (uris) {
-        const getConfig = {
-          method: 'POST',
-          headers: { 
-            Authorization: `Bearer ${accessToken}`,
-            Accept: 'application/json'
-          },
-          contentType: 'application/json',
-          body: JSON.stringify({
-            uris: uris
-          }),
-          dataType: 'json',
-        }
-        console.log(getConfig.body);
-        return fetch(
-          `${baseApiUrl}/playlists/${playlistId}/tracks`,
-          getConfig
-        ).then(response => {
-          console.log(response)
-        });
+  addSelectionToPlaylist (uris, playlistId) {
+    const getConfig = {
+      method: 'POST',
+      headers: { 
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json'
       },
+      contentType: 'application/json',
+      body: JSON.stringify({
+        uris: uris
+      }),
+      dataType: 'json',
+    };
+    return fetch(
+      `${baseApiUrl}/playlists/${playlistId}/tracks`,
+      getConfig
+    ).then(response => {
+      console.log(response)
+    });
+  },
 
-      createEmptyPlaylist(name) {
-        const getConfig = {
-          method: 'POST',
-          headers: { 
-            Authorization: `Bearer ${accessToken}`,
-            Accept: 'application/json'
-          },
-          contentType: 'application/json',
-          body: JSON.stringify({
-            name: name,
-            public: false,
-            collaborative: true
-          }),
-          dataType: 'json',
-        };
-        return fetch(
-          `${baseApiUrl}/users/${userId}/playlists`,
-          getConfig
-        ).then(response => {
-          console.log(response);
-        });
-      }
+  createEmptyPlaylist(name, userId) {
+    const getConfig = {
+      method: 'POST',
+      headers: { 
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json'
+      },
+      contentType: 'application/json',
+      body: JSON.stringify({
+        name: name,
+        public: false,
+        collaborative: true
+      }),
+      dataType: 'json',
+    };
+    return fetch(
+      `${baseApiUrl}/me/playlists`,
+      getConfig
+    ).then(response => {
+      return response.json();
+    });
+  }
 
 };
 let accessToken = Spotify.getAccessToken();

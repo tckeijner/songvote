@@ -18,8 +18,10 @@ class App extends React.Component {
       client: 'host',
       partyPin: 1,
       playlistName: '',
+      playlistId: '',
       step: 1,
-      hostTerm: ''
+      hostTerm: '',
+      userId: ''
     };
     
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
@@ -37,21 +39,27 @@ class App extends React.Component {
   
   createNewPlaylist() {
     const name = this.state.playlistName;
-    Spotify.createEmptyPlaylist(name)
-    .then(() => {
-      this.setState({step: 2});
+    const userId = this.state.userId;
+    Spotify.createEmptyPlaylist(name, userId)
+    .then((result) => {
+      console.log(result)
       const randomNumber = Math.floor(Math.random()*1000000);
-      this.setState({partyPin: randomNumber});
+      this.setState({
+        playlistId: result.id,
+        userId: result.owner.id,
+        step: 2,
+        partyPin: randomNumber
+      });
       console.log(this.state);
-    });
+    })
   };
   
   finishPlaylist() {
     this.setState({step: 3});
-  }
+  };
 
-  getPlaylist() {
-    Spotify.fetchPlaylist().then(
+  getPlaylist(Id) {
+    Spotify.fetchPlaylist(Id).then(
       (result) => {
         const trackArray = []
         result.tracks.items.forEach(item => {
@@ -70,7 +78,11 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    this.getPlaylist();
+    if (this.state.playlistId === '') {
+      return;
+    } else {
+      this.getPlaylist(this.state.playlistId);
+    }
   };
 
   componentDidMount() {
@@ -102,18 +114,19 @@ class App extends React.Component {
   };
 
   addSelection() {
+    const playlistId = this.state.playlistId
     const uriArray = []
     this.state.yourSelection.forEach(track => {
       uriArray.push(track.uri);
     });
-    Spotify.addSelectionToPlaylist(uriArray)
+    Spotify.addSelectionToPlaylist(uriArray, playlistId)
     .then(() => {
       this.getPlaylist();
     });
   };
 
   render() {
-    switch(this.state.client)  {
+    switch(this.state.client) {
       case 'host':
         return (
           <CreateNew 
