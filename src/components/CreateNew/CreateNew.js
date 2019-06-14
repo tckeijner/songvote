@@ -6,7 +6,7 @@ import 'typeface-roboto';
 
 class CreateNew extends React.Component {
 	render() {
-		switch(this.props.step) {
+		switch(this.props.hostStep) {
 			case 1:
 				return (
 					<div>

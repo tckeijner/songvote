@@ -1,12 +1,9 @@
 import React from 'react';
 import './App.css';
-import Search from './components/Search/Search.js';
-import Playlist from './components/Playlist/Playlist.js';
-import YourSelection from './components/YourSelection/YourSelection.js';
 import Spotify from './util/Spotify';
-import Grid from '@material-ui/core/Grid';
-import NavBar from './components/NavBar.js';
 import CreateNew from './components/CreateNew/CreateNew';
+import Home from './components/Home/Home';
+import Guest from './components/Guest/Guest';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,15 +12,17 @@ class App extends React.Component {
       searchResults: [],
       yourSelection: [],
       playlist: [],
-      client: 'host',
+      client: 'home',
       partyPin: 1,
       playlistName: '',
       playlistId: '',
-      step: 1,
+      hostStep: 1,
       hostTerm: '',
       userId: ''
     };
     
+    this.onStart = this.onStart.bind(this);
+    this.onJoin = this.onJoin.bind(this);
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
     this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this);
     this.finishPlaylist = this.finishPlaylist.bind(this)
@@ -32,6 +31,14 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.addSelection = this.addSelection.bind(this);
   };
+
+  onStart() {
+    this.setState({client: 'host'})
+  };
+
+  onJoin() {
+    this.setState({client: 'guest'})
+  }
 
   handlePlaylistNameChange(event) {
 		this.setState({playlistName: event.target.value})
@@ -47,7 +54,7 @@ class App extends React.Component {
       this.setState({
         playlistId: result.id,
         userId: result.owner.id,
-        step: 2,
+        hostStep: 2,
         partyPin: randomNumber
       });
       console.log(this.state);
@@ -55,7 +62,7 @@ class App extends React.Component {
   };
   
   finishPlaylist() {
-    this.setState({step: 3});
+    this.setState({hostStep: 3});
   };
 
   getPlaylist(Id) {
@@ -127,52 +134,33 @@ class App extends React.Component {
 
   render() {
     switch(this.state.client) {
+      case 'home':
+        return (
+          <Home 
+          onStart={this.onStart}
+          onJoin={this.onJoin}/>
+        )
       case 'host':
         return (
           <CreateNew 
-            partyPin={this.state.partyPin}
-            onCreate={this.createNewPlaylist}
-            onPlaylistNameChange={this.handlePlaylistNameChange}
-            onSearch={this.search}
-            step={this.state.step}
-            searchResults={this.state.searchResults}
-            isHostSearch={true}
-            onFinish={this.finishPlaylist} />
+          partyPin={this.state.partyPin}
+          onCreate={this.createNewPlaylist}
+          onPlaylistNameChange={this.handlePlaylistNameChange}
+          onSearch={this.search}
+          step={this.state.step}
+          searchResults={this.state.searchResults}
+          isHostSearch={true}
+          onFinish={this.finishPlaylist} />
         );
       case 'guest':
         return (
-          <div>
-            <NavBar />
-            <Grid container 
-                spacing={24} 
-                style={{padding: 24}}
-                justify="space-evenly"
-                alignItems="flex-start">
-              <Grid item xs={12} sm={6}>
-                <Search
-                  className='Search' 
-                  searchResults={this.state.searchResults} 
-                  onAdd={this.addTrack} 
-                  isSearchResults={true}
-                  onSearch={this.search}/>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <YourSelection 
-                  className='YourSelection' 
-                  yourSelection={this.state.yourSelection} 
-                  onRemove={this.removeTrack} 
-                  onAdd={this.addSelection} 
-                  isYourSelection={true}
-                  />
-              </Grid>
-              <Grid item xs={12}>
-                <Playlist 
-                  className='Playlist' 
-                  playlist={this.state.playlist} 
-                  isPlaylist={true}/>
-              </Grid>
-            </Grid>
-          </div>
+          <Guest 
+          searchResults={this.state.searchResults}
+          onSearch={this.search}
+          yourSelection={this.state.yourSelection}
+          onRemove={this.removeTrack}
+          onAddTrack={this.addSelection}
+          playlist={this.state.playlist}/>
           )
       default: 
       return (

@@ -23,11 +23,11 @@ class Track extends React.Component {
 		}
 	};
 
-	addTrack(event) {
-		this.props.onAdd(this.props.track)
+	addTrack() {
+		this.props.onAddTrack(this.props.track)
 	};
 
-	removeTrack(event) {
+	removeTrack() {
 		this.props.onRemove(this.props.track)
 	};
 
@@ -37,19 +37,19 @@ class Track extends React.Component {
 		Spotify.addSelectionToPlaylist(uriArray)
 	};
 
-  render() {
-    return (
-      <ListItem className="Track">
-        <ListItemAvatar>
-          <Avatar />
-          </ListItemAvatar>
-          <ListItemText 
-            primary={this.props.track.name}
-            secondary={`${this.props.track.album} | ${this.props.track.artist}`}/>
-          {this.renderAction()}
-      </ListItem>
-    );
-  };
+	render() {
+		return (
+		<ListItem className="Track">
+			<ListItemAvatar>
+			<Avatar />
+			</ListItemAvatar>
+			<ListItemText 
+			primary={this.props.track.name}
+			secondary={`${this.props.track.album} | ${this.props.track.artist}`}/>
+			{this.renderAction()}
+		</ListItem>
+		);
+	};
 };
 
 export default Track;

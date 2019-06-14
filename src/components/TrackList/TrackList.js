@@ -9,13 +9,13 @@ class TrackList extends React.Component {
 			<List className="TrackList">
 				{this.props.tracks.map(track => {
 					return <Track   
-						track={track} 
-						key={track.id} 
-						onAdd={this.props.onAdd} 
-						onRemove={this.props.onRemove} 
-						isSearchResults={this.props.isSearchResults}
-						isYourSelection={this.props.isYourSelection}
-						isHostSearch={this.props.isHostSearch}/>
+					track={track} 
+					key={track.id} 
+					onAddTrack={this.props.onAddTrack} 
+					onRemove={this.props.onRemove} 
+					isSearchResults={this.props.isSearchResults}
+					isYourSelection={this.props.isYourSelection}
+					isHostSearch={this.props.isHostSearch}/>
 				})}
 			</List>
 		);
