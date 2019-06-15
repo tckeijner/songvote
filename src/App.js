@@ -12,8 +12,8 @@ class App extends React.Component {
       searchResults: [],
       yourSelection: [],
       playlist: [],
-      client: 'home',
-      partyPin: 1,
+      client: 'host',
+      partyPin: '',
       playlistName: '',
       playlistId: '',
       hostStep: 1,
@@ -51,11 +51,12 @@ class App extends React.Component {
     .then((result) => {
       console.log(result)
       const randomNumber = Math.floor(Math.random()*1000000);
+      const pinString = randomNumber.toString();
       this.setState({
         playlistId: result.id,
         userId: result.owner.id,
         hostStep: 2,
-        partyPin: randomNumber
+        partyPin: pinString
       });
       console.log(this.state);
     })
@@ -147,11 +148,11 @@ class App extends React.Component {
           onCreate={this.createNewPlaylist}
           onPlaylistNameChange={this.handlePlaylistNameChange}
           onSearch={this.search}
-          step={this.state.step}
+          hostStep={this.state.hostStep}
           searchResults={this.state.searchResults}
           isHostSearch={true}
           onFinish={this.finishPlaylist} />
-        );
+        )
       case 'guest':
         return (
           <Guest 
@@ -160,12 +161,13 @@ class App extends React.Component {
           yourSelection={this.state.yourSelection}
           onRemove={this.removeTrack}
           onAddTrack={this.addSelection}
-          playlist={this.state.playlist}/>
+          playlist={this.state.playlist}
+          partyPin={this.state.partyPin}/>
           )
-      default: 
-      return (
-        <div></div>
-      );
+      default:
+        return (
+          <div></div>
+        )
     }
   };
 };
