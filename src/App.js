@@ -4,6 +4,8 @@ import Spotify from './util/Spotify';
 import CreateNew from './components/CreateNew/CreateNew';
 import Home from './components/Home/Home';
 import Guest from './components/Guest/Guest';
+import * as firebase from 'firebase';
+import playlistsRef from './firebase';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class App extends React.Component {
       searchResults: [],
       yourSelection: [],
       playlist: [],
-      client: 'host',
+      client: 'home',
       partyPin: '',
       playlistName: '',
       playlistId: '',
@@ -59,6 +61,15 @@ class App extends React.Component {
         partyPin: pinString
       });
       console.log(this.state);
+      const db = firebase.firestore();
+      db.settings({
+        timestampsInSnapshots: true
+      });
+      const playlistsRef = db.collection("playlists").add({
+        partyPin: this.state.partyPin,
+        playlistId: this.state.playlistId,
+        userId: this.state.userId
+      });  
     })
   };
   
