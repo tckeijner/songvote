@@ -8,7 +8,7 @@ class YourSelection extends React.Component {
         return (
             <Card className='YourSelection'>
                 <CardContent>
-                    <Button className='add-selection' onClick={this.props.onAdd}>Add To Party Playlist</Button>
+                    <Button className='add-selection' onClick={this.props.onFinish}>Add To Party Playlist</Button>
                     <TrackList 
                         tracks={this.props.yourSelection} 
                         isYourSelection={true}

@@ -15,7 +15,8 @@ class TrackList extends React.Component {
 					onRemove={this.props.onRemove} 
 					isSearchResults={this.props.isSearchResults}
 					isYourSelection={this.props.isYourSelection}
-					isHostSearch={this.props.isHostSearch}/>
+					isHostSearch={this.props.isHostSearch}
+					playlistId={this.props.playlistId}/>
 				})}
 			</List>
 		);

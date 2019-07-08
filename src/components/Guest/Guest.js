@@ -4,20 +4,36 @@ import NavBar from '../NavBar';
 import Search from '../Search/Search';
 import YourSelection from '../YourSelection/YourSelection';
 import Playlist from '../Playlist/Playlist';
+import db from '../../firebase';
 
 class Guest extends React.Component {
     constructor(props) {
         super (props);
         this.state = {
             guestStep: 1,
-            pinEntry: ''
+            pinEntry: '',
+            playlistIdRef: ''
         };
         this.handlePinEntryChange = this.handlePinEntryChange.bind(this);
+        this.matchPartyPin = this.matchPartyPin.bind(this);
 
+    };
+
+    componentDidUpdate() {
+        console.log(this.state)
     };
 
     handlePinEntryChange(event) {
         this.setState({pinEntry: event.target.value})
+    };
+
+    matchPartyPin() {
+        db.matchPartyPin(this.state.pinEntry)
+        .then(result => {
+            this.setState({playlistIdRef: result});
+            this.setState({guestStep: 2});
+            this.props.onSet(this.state.pinEntry, result)
+        })
     };
 
     render() {
@@ -33,7 +49,8 @@ class Guest extends React.Component {
                         id="pin-entry"
                         label="Enter party PIN"
                         onChange={this.handlePinEntryChange} />
-                        <Button>
+                        <Button 
+                        onClick={this.matchPartyPin}>
                             Join Party
                         </Button>
                     </div>

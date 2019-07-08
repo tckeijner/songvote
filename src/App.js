@@ -4,8 +4,7 @@ import Spotify from './util/Spotify';
 import CreateNew from './components/CreateNew/CreateNew';
 import Home from './components/Home/Home';
 import Guest from './components/Guest/Guest';
-import * as firebase from 'firebase';
-import playlistsRef from './firebase';
+import db from './firebase';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class App extends React.Component {
       yourSelection: [],
       playlist: [],
       client: 'home',
-      partyPin: '',
+      partyPin: 0,
       playlistName: '',
       playlistId: '',
       hostStep: 1,
@@ -32,6 +31,7 @@ class App extends React.Component {
     this.removeTrack = this.removeTrack.bind(this);
     this.search = this.search.bind(this);
     this.addSelection = this.addSelection.bind(this);
+    this.setPlaylist = this.setPlaylist.bind(this);
   };
 
   onStart() {
@@ -40,7 +40,7 @@ class App extends React.Component {
 
   onJoin() {
     this.setState({client: 'guest'})
-  }
+  };
 
   handlePlaylistNameChange(event) {
 		this.setState({playlistName: event.target.value})
@@ -51,7 +51,6 @@ class App extends React.Component {
     const userId = this.state.userId;
     Spotify.createEmptyPlaylist(name, userId)
     .then((result) => {
-      console.log(result)
       const randomNumber = Math.floor(Math.random()*1000000);
       const pinString = randomNumber.toString();
       this.setState({
@@ -60,25 +59,17 @@ class App extends React.Component {
         hostStep: 2,
         partyPin: pinString
       });
-      console.log(this.state);
-      const db = firebase.firestore();
-      db.settings({
-        timestampsInSnapshots: true
-      });
-      const playlistsRef = db.collection("playlists").add({
-        partyPin: this.state.partyPin,
-        playlistId: this.state.playlistId,
-        userId: this.state.userId
-      });  
-    })
+      db.writePlaylistData(this.state.playlistName, this.state.playlistId, this.state.partyPin, this.state.userId);
+      console.log(this.state)
+    });
   };
   
   finishPlaylist() {
     this.setState({hostStep: 3});
   };
 
-  getPlaylist(Id) {
-    Spotify.fetchPlaylist(Id).then(
+  getPlaylist() {
+    Spotify.fetchPlaylist(this.state.playlistId).then(
       (result) => {
         const trackArray = []
         result.tracks.items.forEach(item => {
@@ -105,7 +96,11 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    console.log(this.state)
+  };
 
+  componentDidUpdate() {
+    console.log(this.state)
   };
 
   search(term) {
@@ -123,6 +118,7 @@ class App extends React.Component {
     } else {
     tracks.push(track);
     this.setState({yourSelection: tracks});
+    console.log(this.state)
     }
   };
 
@@ -134,6 +130,7 @@ class App extends React.Component {
 
   addSelection() {
     const playlistId = this.state.playlistId
+    console.log(playlistId)
     const uriArray = []
     this.state.yourSelection.forEach(track => {
       uriArray.push(track.uri);
@@ -143,6 +140,14 @@ class App extends React.Component {
       this.getPlaylist();
     });
   };
+
+  setPlaylist(pin, playlistId) {
+    this.setState({
+      playlistId: playlistId,
+      partyPin: pin
+    });
+    console.log(this.state)
+  }
 
   render() {
     switch(this.state.client) {
@@ -162,7 +167,8 @@ class App extends React.Component {
           hostStep={this.state.hostStep}
           searchResults={this.state.searchResults}
           isHostSearch={true}
-          onFinish={this.finishPlaylist} />
+          onFinish={this.finishPlaylist}
+          playlistId={this.state.playlistId} />
         )
       case 'guest':
         return (
@@ -171,9 +177,11 @@ class App extends React.Component {
           onSearch={this.search}
           yourSelection={this.state.yourSelection}
           onRemove={this.removeTrack}
-          onAddTrack={this.addSelection}
+          onAddTrack={this.addTrack}
           playlist={this.state.playlist}
-          partyPin={this.state.partyPin}/>
+          partyPin={this.state.partyPin}
+          onFinish={this.addSelection} 
+          onSet={this.setPlaylist}/>
           )
       default:
         return (

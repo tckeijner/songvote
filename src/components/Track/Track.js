@@ -34,7 +34,7 @@ class Track extends React.Component {
 	addTrackToPlaylist() {
 		const uriArray = []
 		uriArray.push(this.props.track.uri)
-		Spotify.addSelectionToPlaylist(uriArray)
+		Spotify.addSelectionToPlaylist(uriArray, this.props.playlistId)
 	};
 
 	render() {

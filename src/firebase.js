@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCy5j6jKUbFsSsjQMHvvggvIWVawZFB9xI",
@@ -10,5 +10,25 @@ const firebaseConfig = {
     appId: "1:443576159939:web:7482dd7c7a4a83f6"
 };
 firebase.initializeApp(firebaseConfig);
-const databaseRef = firebase.database().ref();
-export const playlistsRef = databaseRef.child("playlists");
+
+const db = {
+    writePlaylistData(playlistName, playlistId, partyPin, userId) {
+        firebase.database().ref(`playlists/${partyPin}`).set({
+            playlistName: playlistName,
+            playlistId: playlistId,
+            partyPin: partyPin,
+            userId: userId
+        });
+    },
+
+    matchPartyPin(pinEntry) {
+        return firebase.database().ref(`playlists/${pinEntry}`).once('value')
+        .then((snapshot) => {
+            const playlistIdRef = snapshot.child('playlistId').val()
+            return playlistIdRef;
+        });
+    }
+};
+
+
+export default db;

@@ -46,6 +46,7 @@ class CreateNew extends React.Component {
 								onAdd={this.props.addTrack} 
 								isHostSearch={this.props.isHostSearch}
 								onSearch={this.props.onSearch}
+								playlistId={this.props.playlistId}
 								/>
 						</div>
 					);
