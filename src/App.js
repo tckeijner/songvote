@@ -181,7 +181,8 @@ class App extends React.Component {
           playlist={this.state.playlist}
           partyPin={this.state.partyPin}
           onFinish={this.addSelection} 
-          onSet={this.setPlaylist}/>
+          onSet={this.setPlaylist}
+          onAdd={this.addSelection}/>
           )
       default:
         return (

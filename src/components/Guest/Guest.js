@@ -16,6 +16,7 @@ class Guest extends React.Component {
         };
         this.handlePinEntryChange = this.handlePinEntryChange.bind(this);
         this.matchPartyPin = this.matchPartyPin.bind(this);
+        this.addSelection = this.addSelection.bind(this);
 
     };
 
@@ -34,6 +35,11 @@ class Guest extends React.Component {
             this.setState({guestStep: 2});
             this.props.onSet(this.state.pinEntry, result)
         })
+    };
+
+    addSelection() {
+        this.props.onAdd();
+        this.setState({guestStep: 3});
     };
 
     render() {
@@ -77,7 +83,7 @@ class Guest extends React.Component {
                     className='YourSelection' 
                     yourSelection={this.props.yourSelection} 
                     onRemove={this.props.onRemove} 
-                    onAdd={this.props.onAdd} 
+                    onAdd={this.addSelection}
                     isYourSelection={true}/>
                     </Grid>
                     <Grid item xs={12}>
@@ -89,6 +95,21 @@ class Guest extends React.Component {
                     </Grid>
                     </div>
                 )
+            case 3: 
+                    return (
+                        <div>
+                            <NavBar />
+                            <Grid container 
+                            spacing={24} 
+                            style={{padding: 24}}
+                            justify="space-evenly"
+                            alignItems="flex-start">
+                                <h1>
+                                    Happy Party!
+                                </h1>
+                            </Grid>
+                        </div>
+                    )
         }
 
     }
