@@ -1,27 +1,49 @@
 import React from 'react';
 import NavBar from '../NavBar';
-import { Card, Button } from '@material-ui/core';
+import { Card, CardContent, CardActionArea, Button, Grid, Typography } from '@material-ui/core';
 import 'typeface-roboto'
+import classes from '../Styles';
 
 class Home extends React.Component {
   render() {
     return (
-      <div>
+      <div className={classes.root}>
         <NavBar />
-        <Card>
-          <Button
-            onClick={this.props.onStart}>
-          Start a new party
-          </Button>
-          Create a new playlist and set up a Party PIN, which your guests can use to add more songs to your party playlist.
-        </Card>
-        <Card>
-          <Button
-            onClick={this.props.onJoin}>
-          Join a party            
-          </Button>
-          Log in to the current party playlist to add the songs you like!
-        </Card>
+        <Grid container spacing={3}>
+          <Grid item sm>
+            <Card className={classes.Card}>
+            <CardActionArea>
+                <Button
+                onClick={this.props.onStart}
+                variant="contained" >
+                Start a new party
+                </Button>
+              </CardActionArea>
+              <CardContent>
+                <Typography>
+                Create a new playlist and set up a Party PIN, which your guests can use to add more songs to your party playlist.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item sm>
+          <Card className={classes.Card}>
+          <CardActionArea>
+              <Button
+              onClick={this.props.onJoin}
+              variant="contained">
+              Join a party            
+              </Button>
+            </CardActionArea>
+            <CardContent>
+              <Typography>
+                Log in to the current party playlist to add the songs you like!
+              </Typography>
+            </CardContent>
+
+          </Card>
+        </Grid>
+        </Grid>
       </div>
     );
   };
