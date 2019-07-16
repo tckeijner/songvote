@@ -11,7 +11,7 @@ class Home extends React.Component {
         <NavBar />
         <Grid container spacing={3}>
           <Grid item sm>
-            <Card className={classes.Card}>
+            <Card style={classes.Card}>
             <CardActionArea>
                 <Button
                 onClick={this.props.onStart}
