@@ -1,16 +1,17 @@
 import React from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, Typography, Card, CardContent} from '@material-ui/core';
 import NavBar from '../NavBar';
 import Search from '../Search/Search';
 import YourSelection from '../YourSelection/YourSelection';
 import Playlist from '../Playlist/Playlist';
 import db from '../../firebase';
+import styles from '../Styles';
 
 class Guest extends React.Component {
     constructor(props) {
         super (props);
         this.state = {
-            guestStep: 1,
+            guestStep: 3,
             pinEntry: '',
             playlistIdRef: ''
         };
@@ -51,48 +52,83 @@ class Guest extends React.Component {
             case 1:
                 return (
                     <div>
-                        <TextField
-                        id="pin-entry"
-                        label="Enter party PIN"
-                        onChange={this.handlePinEntryChange} />
-                        <Button 
-                        onClick={this.matchPartyPin}>
-                            Join Party
-                        </Button>
+                        <NavBar/>
+                        <Grid
+                        container 
+                        spacing={3}
+                        style={styles.grid}
+                        direction="row"
+                        justify="center"
+                        alignItems="flex-start">
+                            <Card style={styles.card}>
+                                <CardContent>
+                                    <Typography>
+                                        Enter the party PIN that you acquired from your party host.
+                                    </Typography>
+                                </CardContent>
+                                <CardContent>
+                                    <TextField
+                                    id="pin-entry"
+                                    label="Enter party PIN"
+                                    onChange={this.handlePinEntryChange} />
+                                </CardContent>
+                                <CardContent>
+                                    <Button 
+                                    variant="contained"
+                                    onClick={this.matchPartyPin}>
+                                        Join Party
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+
                     </div>
                 )
             case 2:
                 return (
                     <div>
-                    <NavBar />
-                    <Grid container 
-                    spacing={24} 
-                    style={{padding: 24}}
-                    justify="space-evenly"
-                    alignItems="flex-start">
-                    <Grid item xs={12} sm={6}>
-                    <Search
-                    className='Search' 
-                    searchResults={this.props.searchResults} 
-                    onAddTrack={this.props.onAddTrack} 
-                    isSearchResults={true}
-                    onSearch={this.props.onSearch}/>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <YourSelection 
-                    className='YourSelection' 
-                    yourSelection={this.props.yourSelection} 
-                    onRemove={this.props.onRemove} 
-                    onAdd={this.addSelection}
-                    isYourSelection={true}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                    <Playlist 
-                    className='Playlist' 
-                    playlist={this.props.playlist} 
-                    isPlaylist={true}/>
-                    </Grid>
-                    </Grid>
+                        <NavBar />
+                        <Grid container>
+                            <Grid item xs={6}>
+                                <Grid container 
+                                spacing={3} 
+                                style={styles.grid}
+                                justify="flex-start"
+                                alignItems="flex-start"
+                                direction='row'>
+                                    <Grid item xs={12}>
+                                        <Search
+                                        className='Search' 
+                                        searchResults={this.props.searchResults} 
+                                        onAddTrack={this.props.onAddTrack} 
+                                        isSearchResults={true}
+                                        onSearch={this.props.onSearch}/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid item xs={6}>
+                                <Grid 
+                                container
+                                style={styles.grid}
+                                spacing={3} >
+                                    <Grid item xs={12}>
+                                        <YourSelection 
+                                        className='YourSelection' 
+                                        yourSelection={this.props.yourSelection} 
+                                        onRemove={this.props.onRemove} 
+                                        onAdd={this.addSelection}
+                                        isYourSelection={true}/>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Playlist 
+                                        className='Playlist' 
+                                        playlist={this.props.playlist} 
+                                        isPlaylist={true}/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </div>
                 )
             case 3: 
@@ -100,13 +136,17 @@ class Guest extends React.Component {
                         <div>
                             <NavBar />
                             <Grid container 
-                            spacing={24} 
-                            style={{padding: 24}}
-                            justify="space-evenly"
-                            alignItems="flex-start">
-                                <h1>
-                                    Happy Party!
-                                </h1>
+                            spacing={3} 
+                            style={styles.grid}
+                            justify="center"
+                            alignItems="center">
+                                <Card style={styles.card}>
+                                    <CardContent>
+                                        <Typography variant="h5">
+                                            Happy party!
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
                             </Grid>
                         </div>
                     )

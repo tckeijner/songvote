@@ -2,16 +2,16 @@ import React from 'react';
 import './Playlist.css';
 import TrackList from '../TrackList/TrackList.js';
 import {Card, CardContent, Typography} from '@material-ui/core/';
+import styles from '../Styles';
 
 class Playlist extends React.Component {
     render () {
         return (
-            <Card className='SearchBar'>
+            <Card style={styles.card} className='SearchBar'>
                 <CardContent>
-                    <Typography variant="h4" >Public playlist</Typography>
+                    <Typography variant="h5" >Public playlist</Typography>
                     <TrackList tracks={this.props.playlist}/>
                 </CardContent>
-
             </Card>
             );
     };

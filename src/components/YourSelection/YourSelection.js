@@ -1,19 +1,30 @@
 import React from 'react';
 import './YourSelection.css';
 import TrackList from '../TrackList/TrackList.js';
-import { Card, Button, CardContent } from '@material-ui/core'
+import { Card, Button, CardContent, Typography, CardActionArea } from '@material-ui/core';
+import styles from '../Styles';
 
 class YourSelection extends React.Component {
     render() {
         return (
-            <Card className='YourSelection'>
+            <Card style={styles.card}>
                 <CardContent>
-                    <Button className='add-selection' onClick={this.props.onAdd}>Add To Party Playlist</Button>
-                    <TrackList 
-                        tracks={this.props.yourSelection} 
-                        isYourSelection={true}
-                        onRemove={this.props.onRemove}/>                    
+                    <Typography variant="h5">
+                        Your selection: 
+                    </Typography>
+                    <Typography>
+                        (You can select a maximum of 3 songs to add to the playlist.) 
+                    </Typography>
                 </CardContent>
+                <CardContent>
+                    <TrackList 
+                    tracks={this.props.yourSelection} 
+                    isYourSelection={true}
+                    onRemove={this.props.onRemove}/>                    
+                </CardContent>
+                <CardActionArea>
+                    <Button variant="contained" className='add-selection' onClick={this.props.onAdd}>Add To Party Playlist</Button>
+                </CardActionArea>
             </Card>
         );
     }

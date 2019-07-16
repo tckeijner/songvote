@@ -13,11 +13,11 @@ class App extends React.Component {
       searchResults: [],
       yourSelection: [],
       playlist: [],
-      client: 'home',
-      partyPin: 0,
+      client: 'guest',
+      partyPin: 123456,
       playlistName: '',
       playlistId: '',
-      hostStep: 1,
+      hostStep: 3,
       hostTerm: '',
       userId: ''
     };

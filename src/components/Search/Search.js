@@ -3,7 +3,8 @@ import './Search.css';
 import TrackList from '../TrackList/TrackList.js';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
+import styles from '../Styles';
 
 class Search extends React.Component {
     constructor(props) {
@@ -31,13 +32,12 @@ class Search extends React.Component {
 
     render() {
         return (
-            <Card>
+            <Card style={styles.card}>
                 <CardContent>
                     <TextField placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange}/>
                     <Button className="SearchButton" onClick={this.search}>SEARCH</Button>
                 </CardContent>
                 <CardContent className='SearchResults'>
-                <Typography variant="h4" >Search results</Typography>
                     <TrackList 
                         tracks={this.props.searchResults} 
                         isSearchResults={true} 
