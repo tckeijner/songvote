@@ -1,18 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
+  grid: {
+    paddingLeft: 20
+  },
   card: {
     minWidth: 275,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10
+    padding: theme.spacing(2)
   },
 }));
 
-const classes = useStyles;
+const styles = useStyles;
 
-export default classes;
+export default styles;

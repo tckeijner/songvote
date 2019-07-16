@@ -2,16 +2,20 @@ import React from 'react';
 import NavBar from '../NavBar';
 import { Card, CardContent, CardActionArea, Button, Grid, Typography } from '@material-ui/core';
 import 'typeface-roboto'
-import classes from '../Styles';
+import styles from '../Styles';
 
 class Home extends React.Component {
   render() {
     return (
-      <div className={classes.root}>
+      <div>
         <NavBar />
-        <Grid container spacing={3}>
+        <Grid 
+        container 
+        spacing={3}
+        style={styles.grid}>
           <Grid item sm>
-            <Card style={classes.Card}>
+            <Card
+            style={styles.card} >
             <CardActionArea>
                 <Button
                 onClick={this.props.onStart}
@@ -27,7 +31,7 @@ class Home extends React.Component {
             </Card>
           </Grid>
           <Grid item sm>
-          <Card className={classes.Card}>
+          <Card style={styles.card}>
           <CardActionArea>
               <Button
               onClick={this.props.onJoin}
