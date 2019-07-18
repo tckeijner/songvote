@@ -11,7 +11,7 @@ class Guest extends React.Component {
     constructor(props) {
         super (props);
         this.state = {
-            guestStep: 3,
+            guestStep: 2,
             pinEntry: '',
             playlistIdRef: ''
         };
@@ -74,6 +74,7 @@ class Guest extends React.Component {
                                 </CardContent>
                                 <CardContent>
                                     <Button 
+                                    style={styles.button}
                                     variant="contained"
                                     onClick={this.matchPartyPin}>
                                         Join Party
@@ -88,45 +89,33 @@ class Guest extends React.Component {
                 return (
                     <div>
                         <NavBar />
-                        <Grid container>
-                            <Grid item xs={6}>
-                                <Grid container 
-                                spacing={3} 
-                                style={styles.grid}
-                                justify="flex-start"
-                                alignItems="flex-start"
-                                direction='row'>
-                                    <Grid item xs={12}>
-                                        <Search
-                                        className='Search' 
-                                        searchResults={this.props.searchResults} 
-                                        onAddTrack={this.props.onAddTrack} 
-                                        isSearchResults={true}
-                                        onSearch={this.props.onSearch}/>
-                                    </Grid>
-                                </Grid>
+                        <Grid container 
+                        spacing={3} 
+                        style={styles.grid}
+                        justify="flex-start"
+                        alignItems="flex-start"
+                        direction='row'>
+                            <Grid item xs={12}>
+                                <Search
+                                className='Search' 
+                                searchResults={this.props.searchResults} 
+                                onAddTrack={this.props.onAddTrack} 
+                                isSearchResults={true}
+                                onSearch={this.props.onSearch}/>
                             </Grid>
-
-                            <Grid item xs={6}>
-                                <Grid 
-                                container
-                                style={styles.grid}
-                                spacing={3} >
-                                    <Grid item xs={12}>
-                                        <YourSelection 
-                                        className='YourSelection' 
-                                        yourSelection={this.props.yourSelection} 
-                                        onRemove={this.props.onRemove} 
-                                        onAdd={this.addSelection}
-                                        isYourSelection={true}/>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Playlist 
-                                        className='Playlist' 
-                                        playlist={this.props.playlist} 
-                                        isPlaylist={true}/>
-                                    </Grid>
-                                </Grid>
+                            <Grid item xs={12}>
+                                <YourSelection 
+                                className='YourSelection' 
+                                yourSelection={this.props.yourSelection} 
+                                onRemove={this.props.onRemove} 
+                                onAdd={this.addSelection}
+                                isYourSelection={true}/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Playlist 
+                                className='Playlist' 
+                                playlist={this.props.playlist} 
+                                isPlaylist={true}/>
                             </Grid>
                         </Grid>
                     </div>

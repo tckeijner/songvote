@@ -35,7 +35,7 @@ class Search extends React.Component {
             <Card style={styles.card}>
                 <CardContent>
                     <TextField placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange}/>
-                    <Button className="SearchButton" onClick={this.search}>SEARCH</Button>
+                    <Button style={styles.button} className="SearchButton" onClick={this.search}>SEARCH</Button>
                 </CardContent>
                 <CardContent className='SearchResults'>
                     <TrackList 

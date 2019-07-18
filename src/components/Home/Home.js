@@ -19,7 +19,8 @@ class Home extends React.Component {
             <CardActionArea>
                 <Button
                 onClick={this.props.onStart}
-                variant="contained" >
+                variant="contained" 
+                style={styles.button}>
                 Start a new party
                 </Button>
               </CardActionArea>
@@ -35,7 +36,8 @@ class Home extends React.Component {
           <CardActionArea>
               <Button
               onClick={this.props.onJoin}
-              variant="contained">
+              variant="contained"
+              style={styles.button}>
               Join a party            
               </Button>
             </CardActionArea>

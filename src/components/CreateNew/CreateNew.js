@@ -39,7 +39,8 @@ class CreateNew extends React.Component {
 										id="create-playlist"
 										className="button"
 										onClick={this.props.onCreate}
-										variant="contained">
+										variant="contained"
+										style={styles.button}>
 										Create Playlist
 									</Button>
 								</CardActionArea>
@@ -79,6 +80,7 @@ class CreateNew extends React.Component {
 									<Card style={styles.card}>
 										<CardActionArea>
 											<Button
+											style={styles.button}
 											variant="contained"
 											id="finish-playlist"
 											className="button"

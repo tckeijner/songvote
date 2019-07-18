@@ -4,6 +4,7 @@ import { ListItem, ListItemAvatar, Avatar, ListItemText, Fab } from '@material-u
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Spotify from '../../util/Spotify';
+import styles from '../Styles';
 
 class Track extends React.Component {
 	constructor(props) {
@@ -16,11 +17,11 @@ class Track extends React.Component {
 	
 	renderAction() {
 		if (this.props.isHostSearch === true) {
-			return <Fab className="Track-action" onClick={this.addTrackToPlaylist}><AddIcon/></Fab>
+			return <Fab className="Track-action" style={styles.fab} onClick={this.addTrackToPlaylist}><AddIcon/></Fab>
 		} else if (this.props.isSearchResults === true) {
-			return <Fab className="Track-action" onClick={this.addTrack}><AddIcon/></Fab>
+			return <Fab className="Track-action" style={styles.fab} onClick={this.addTrack}><AddIcon/></Fab>
 		} else if (this.props.isYourSelection === true) {
-			return <Fab className="Track-action" onClick={this.removeTrack}><DeleteIcon/></Fab>
+			return <Fab className="Track-action" style={styles.fab} onClick={this.removeTrack}><DeleteIcon/></Fab>
 		}
 	};
 

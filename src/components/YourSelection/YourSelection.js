@@ -23,7 +23,7 @@ class YourSelection extends React.Component {
                     onRemove={this.props.onRemove}/>                    
                 </CardContent>
                 <CardActionArea>
-                    <Button variant="contained" className='add-selection' onClick={this.props.onAdd}>Add To Party Playlist</Button>
+                    <Button style={styles.button} variant="contained" className='add-selection' onClick={this.props.onAdd}>Add To Party Playlist</Button>
                 </CardActionArea>
             </Card>
         );

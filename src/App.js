@@ -17,7 +17,7 @@ class App extends React.Component {
       partyPin: 123456,
       playlistName: '',
       playlistId: '',
-      hostStep: 3,
+      hostStep: 1,
       hostTerm: '',
       userId: ''
     };
