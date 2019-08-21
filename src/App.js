@@ -13,8 +13,8 @@ class App extends React.Component {
       searchResults: [],
       yourSelection: [],
       playlist: [],
-      client: 'guest',
-      partyPin: 123456,
+      client: 'home',
+      partyPin: 0,
       playlistName: '',
       playlistId: '',
       hostStep: 1,
@@ -32,6 +32,8 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.addSelection = this.addSelection.bind(this);
     this.setPlaylist = this.setPlaylist.bind(this);
+    this.getPlaylist = this.getPlaylist.bind(this);
+    this.addTrackToPlaylist = this.addTrackToPlaylist.bind(this)
   };
 
   onStart() {
@@ -73,14 +75,16 @@ class App extends React.Component {
       (result) => {
         const trackArray = []
         result.tracks.items.forEach(item => {
+          console.log(item)
           let track = {
             name: item.track.name,
             artist: item.track.artists[0].name,
             album: item.track.album.name,
             id: item.track.id,
-            uri: item.uri
+            uri: item.track.uri
           };
-          trackArray.push(track)
+          trackArray.push(track);
+          console.log(trackArray);
           this.setState({playlist: trackArray});
         });
       }
@@ -93,14 +97,6 @@ class App extends React.Component {
     } else {
       this.getPlaylist(this.state.playlistId);
     }
-  };
-
-  componentDidMount() {
-    console.log(this.state)
-  };
-
-  componentDidUpdate() {
-    console.log(this.state)
   };
 
   search(term) {
@@ -146,8 +142,14 @@ class App extends React.Component {
       playlistId: playlistId,
       partyPin: pin
     });
-    console.log(this.state)
-  }
+  };
+
+  addTrackToPlaylist(track) {
+		const uriArray = []
+    uriArray.push(track.uri);
+    Spotify.addSelectionToPlaylist(uriArray, this.state.playlistId);
+    this.getPlaylist();
+	};
 
   render() {
     switch(this.state.client) {
@@ -168,7 +170,9 @@ class App extends React.Component {
           searchResults={this.state.searchResults}
           isHostSearch={true}
           onFinish={this.finishPlaylist}
-          playlistId={this.state.playlistId} />
+          playlistId={this.state.playlistId}
+          playlist={this.state.playlist}
+          onAdd={this.addTrackToPlaylist} />
         )
       case 'guest':
         return (

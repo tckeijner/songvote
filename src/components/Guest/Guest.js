@@ -11,7 +11,7 @@ class Guest extends React.Component {
     constructor(props) {
         super (props);
         this.state = {
-            guestStep: 2,
+            guestStep: 1,
             pinEntry: '',
             playlistIdRef: ''
         };

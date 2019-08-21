@@ -3,7 +3,6 @@ import './Track.css';
 import { ListItem, ListItemAvatar, Avatar, ListItemText, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Spotify from '../../util/Spotify';
 import styles from '../Styles';
 
 class Track extends React.Component {
@@ -12,12 +11,12 @@ class Track extends React.Component {
 		this.renderAction = this.renderAction.bind(this);
 		this.addTrack = this.addTrack.bind(this);
 		this.removeTrack = this.removeTrack.bind(this);
-		this.addTrackToPlaylist = this.addTrackToPlaylist.bind(this);
+		this.addToPlaylist = this.addToPlaylist.bind(this);
 	};
 	
 	renderAction() {
 		if (this.props.isHostSearch === true) {
-			return <Fab className="Track-action" style={styles.fab} onClick={this.addTrackToPlaylist}><AddIcon/></Fab>
+			return <Fab className="Track-action" style={styles.fab} onClick={this.addToPlaylist}><AddIcon/></Fab>
 		} else if (this.props.isSearchResults === true) {
 			return <Fab className="Track-action" style={styles.fab} onClick={this.addTrack}><AddIcon/></Fab>
 		} else if (this.props.isYourSelection === true) {
@@ -33,10 +32,9 @@ class Track extends React.Component {
 		this.props.onRemove(this.props.track)
 	};
 
-	addTrackToPlaylist() {
-		const uriArray = []
-		uriArray.push(this.props.track.uri)
-		Spotify.addSelectionToPlaylist(uriArray, this.props.playlistId)
+	addToPlaylist() {
+		console.log(this.props.track)
+		this.props.onAdd(this.props.track);
 	};
 
 	render() {

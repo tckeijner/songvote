@@ -15,17 +15,17 @@ const styles = {
     height: 140
   },
   appBar: {
-    'background-color': 'purple'
+    'backgroundColor': 'purple'
   },
   button: {
-    'background-color': 'rgb(200, 52, 217)',
+    'backgroundColor': 'rgb(200, 52, 217)',
     color: 'white'
   },
   fab: {
     'width': '30px',
     'height': '30px',
-    'min-width': '30px',
-    'min-height': '30px'
+    'minWidth': '30px',
+    'minHeight': '30px'
   }
 };
 

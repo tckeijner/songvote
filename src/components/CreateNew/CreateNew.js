@@ -4,6 +4,8 @@ import { TextField, Button, Typography, Grid, Card, CardContent, CardActionArea,
 import Search from '../Search/Search'
 import 'typeface-roboto';
 import styles from '../Styles';
+import Playlist from '../Playlist/Playlist';
+
 
 class CreateNew extends React.Component {
 	render() {
@@ -70,7 +72,7 @@ class CreateNew extends React.Component {
 									<Search 
 									className='Search' 
 									searchResults={this.props.searchResults} 
-									onAdd={this.props.addTrack} 
+									onAdd={this.props.onAdd} 
 									isHostSearch={this.props.isHostSearch}
 									onSearch={this.props.onSearch}
 									playlistId={this.props.playlistId}
@@ -78,6 +80,10 @@ class CreateNew extends React.Component {
 								</Grid>
 								<Grid item sm>
 									<Card style={styles.card}>
+										<CardContent>
+											<Playlist
+											playlist={this.props.playlist}/>
+										</CardContent>
 										<CardActionArea>
 											<Button
 											style={styles.button}

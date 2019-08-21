@@ -43,7 +43,8 @@ class Search extends React.Component {
                         isSearchResults={true} 
                         onAddTrack={this.props.onAddTrack}
                         isHostSearch={this.props.isHostSearch}
-                        playlistId={this.props.playlistId}/>
+                        playlistId={this.props.playlistId}
+                        onAdd={this.props.onAdd}/>
                 </CardContent>               
             </Card>
         );
