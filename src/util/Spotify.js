@@ -17,7 +17,7 @@ const Spotify = {
       return token;
     } else {
       const baseAccessUrl = 'https://accounts.spotify.com';
-      const redirectUri = 'http://localhost:3000';
+      const redirectUri = 'https://loving-khorana-8ece6e.netlify.com';
       const accessUrl = `${baseAccessUrl}/authorize?client_id=${clientId}&scope=playlist-modify-private&response_type=token&redirect_uri=${redirectUri}`;
       window.location = accessUrl;
     };
