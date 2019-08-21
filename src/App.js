@@ -51,19 +51,24 @@ class App extends React.Component {
   createNewPlaylist() {
     const name = this.state.playlistName;
     const userId = this.state.userId;
-    Spotify.createEmptyPlaylist(name, userId)
-    .then((result) => {
-      const randomNumber = Math.floor(Math.random()*1000000);
-      const pinString = randomNumber.toString();
-      this.setState({
-        playlistId: result.id,
-        userId: result.owner.id,
-        hostStep: 2,
-        partyPin: pinString
-      });
-      db.writePlaylistData(this.state.playlistName, this.state.playlistId, this.state.partyPin, this.state.userId);
-      console.log(this.state)
-    });
+    console.log(name)
+    if (name === "") {
+      alert("Enter a playlist name first")
+    } else {
+      Spotify.createEmptyPlaylist(name, userId)
+      .then((result) => {
+        const randomNumber = Math.floor(Math.random()*1000000);
+        const pinString = randomNumber.toString();
+        this.setState({
+          playlistId: result.id,
+          userId: result.owner.id,
+          hostStep: 2,
+          partyPin: pinString
+        });
+        db.writePlaylistData(this.state.playlistName, this.state.playlistId, this.state.partyPin, this.state.userId);
+        console.log(this.state)
+      });      
+    }
   };
   
   finishPlaylist() {
@@ -100,9 +105,14 @@ class App extends React.Component {
   };
 
   search(term) {
-    Spotify.search(term).then(searchResults => {
-      this.setState({searchResults: searchResults});
+    if (term === null) {
+      alert("Enter a song, name or album")
+    } else {
+      Spotify.search(term).then(searchResults => {
+        this.setState({searchResults: searchResults});
     });
+    }
+
   };
 
   addTrack(track) {

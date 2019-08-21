@@ -1,18 +1,15 @@
 import React from 'react';
 import './Playlist.css';
 import TrackList from '../TrackList/TrackList.js';
-import {Card, CardContent, Typography} from '@material-ui/core/';
-import styles from '../Styles';
+import {Typography} from '@material-ui/core/';
 
 class Playlist extends React.Component {
     render () {
         return (
-            <Card style={styles.card} className='SearchBar'>
-                <CardContent>
+            <div>
                     <Typography variant="h5" >Public playlist</Typography>
                     <TrackList tracks={this.props.playlist}/>
-                </CardContent>
-            </Card>
+            </div>
             );
     };
 };

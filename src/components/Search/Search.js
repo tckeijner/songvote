@@ -3,14 +3,14 @@ import './Search.css';
 import TrackList from '../TrackList/TrackList.js';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Card, CardContent } from '@material-ui/core';
+import { Card, CardContent, CardActions } from '@material-ui/core';
 import styles from '../Styles';
 
 class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.term = {
-            term: ''
+        this.state = {
+            term: 0
         };
 
         this.handleTermChange = this.handleTermChange.bind(this);
@@ -22,7 +22,12 @@ class Search extends React.Component {
     };
 
     search() {
-        this.props.onSearch(this.state.term)
+        if (this.state.term === "") {
+            alert("Enter a name or artist first")
+        } else {
+            this.props.onSearch(this.state.term)            
+        }
+
     };
 
     continue = e => {
@@ -34,8 +39,10 @@ class Search extends React.Component {
         return (
             <Card style={styles.card}>
                 <CardContent>
-                    <TextField placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange}/>
-                    <Button style={styles.button} className="SearchButton" onClick={this.search}>SEARCH</Button>
+
+                        <CardActions><TextField placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange}/></CardActions>
+                        <CardActions><Button style={styles.searchButton} className="SearchButton" onClick={this.search}>SEARCH</Button></CardActions>
+
                 </CardContent>
                 <CardContent className='SearchResults'>
                     <TrackList 

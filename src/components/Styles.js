@@ -21,6 +21,10 @@ const styles = {
     'backgroundColor': 'rgb(200, 52, 217)',
     color: 'white'
   },
+  searchButton: {
+    'backgroundColor': 'rgb(200, 52, 217)',
+    color: 'white',
+  },
   fab: {
     'width': '30px',
     'height': '30px',
